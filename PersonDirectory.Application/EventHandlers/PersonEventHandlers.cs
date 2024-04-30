@@ -20,7 +20,7 @@ namespace PersonDirectory.Application.EventHandlers
             var city = await _databaseContext.Set<City>()
                                              .FirstOrDefaultAsync(city => city.Id == @event.Person.CityId);
 
-            var readModel = new PersonReadModel(city.Name, @event.Person);
+            var readModel = new PersonReadModel(city == null? string.Empty : city.Name , @event.Person);
 
             await _databaseContext.AddAsync(readModel);
             await _databaseContext.SaveChangesAsync();
@@ -36,7 +36,7 @@ namespace PersonDirectory.Application.EventHandlers
                 var city = await _databaseContext.Set<City>()
                                                  .FirstOrDefaultAsync(city => city.Id == @event.Person.CityId);
 
-                readModel.ChangeDetails(city.Name, @event.Person);
+                readModel.ChangeDetails(city == null ? string.Empty : city.Name, @event.Person);
 
                 _databaseContext.Update(readModel);
                 await _databaseContext.SaveChangesAsync();

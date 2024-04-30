@@ -1,7 +1,9 @@
 using PersonDirectory.DI;
 using Microsoft.OpenApi.Models;
 using PersonDirectory.Api.Filters;
+using Microsoft.EntityFrameworkCore;
 using PersonDirectory.Api.Middlewares;
+using PersonDirectory.Infrastructure.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,5 +37,12 @@ app.UseAuthorization();
 app.UseExceptionHandler();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var dbContext = services.GetRequiredService<DatabaseContext>();
+    dbContext.Database.Migrate();
+}
 
 app.Run();

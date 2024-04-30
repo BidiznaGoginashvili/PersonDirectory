@@ -23,11 +23,21 @@ namespace PersonDirectory.Application.Commands.DeletePerson
 
             person.Delete();
 
+            DeletePhoto(person.PhotoPath);
+
             await _personRepository.DeleteAsync(person, cancellationToken);
 
             await _unitOfWork.CommitAsync(cancellationToken);
 
             return await OkAsync(person.Id);
+        }
+
+        private void DeletePhoto(string path)
+        {
+            if (path != null && File.Exists(path))
+            {
+                File.Delete(path);
+            }
         }
     }
 }

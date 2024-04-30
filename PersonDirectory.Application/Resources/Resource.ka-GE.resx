@@ -129,6 +129,9 @@
   <data name="InvalidBirthDate" xml:space="preserve">
     <value>პირი უნდა იყოს მინიმუმ 18 წლის.</value>
   </data>
+  <data name="InvalidCityId" xml:space="preserve">
+    <value>ქალაქი არ არსებობს.</value>
+  </data>
   <data name="InvalidFirstNameCharacters" xml:space="preserve">
     <value>სახელი უნდა შეიცავდეს მხოლოდ ქართულ ან მხოლოდ ლათინურ ასოებს.</value>
   </data>

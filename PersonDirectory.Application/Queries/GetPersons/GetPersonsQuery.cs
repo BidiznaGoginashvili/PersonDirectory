@@ -11,5 +11,7 @@ namespace PersonDirectory.Application.Queries.GetPersons
         public string? IdentificationNumber { get; set; }
         public DateTime? BirthDateFrom { get; set; }
         public DateTime? BirthDateTo { get; set; }
+        public int PageSize { get; set; } = 0;
+        public int PageNumber { get; set; } = 10;
     }
 }

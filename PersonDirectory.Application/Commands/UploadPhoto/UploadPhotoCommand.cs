@@ -5,7 +5,7 @@ namespace PersonDirectory.Application.Commands.UploadPhoto
 {
     public class UploadPhotoCommand : BaseCommand
     {
-        public int Id { get; set; }
+        public int Id;
         public IFormFile Photo { get; set; }
     }
 }

@@ -21,15 +21,11 @@ namespace PersonDirectory.Infrastructure.Database
         {
             await _context.Set<TAggregateRoot>()
                           .AddAsync(aggregateRoot, cancellationToken);
-
-            await _context.SaveChangesAsync(cancellationToken);
         }
 
         public async Task UpdateAsync(TAggregateRoot aggregateRoot, CancellationToken cancellationToken)
         {
             _context.Entry(aggregateRoot).State = EntityState.Modified;
-
-            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(TAggregateRoot aggregateRoot, CancellationToken cancellationToken)

@@ -97,6 +97,15 @@ namespace PersonDirectory.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to City not found..
+        /// </summary>
+        internal static string InvalidCityId {
+            get {
+                return ResourceManager.GetString("InvalidCityId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FirstName should only contain Georgian or Latin characters..
         /// </summary>
         internal static string InvalidFirstNameCharacters {

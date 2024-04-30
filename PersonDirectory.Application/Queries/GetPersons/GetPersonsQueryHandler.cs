@@ -46,7 +46,8 @@ namespace PersonDirectory.Application.Queries.GetPersons
                     person.PhotoPath,
                     person.BirthDate,
                     person.IdentificationNumber
-                ))
+                )).Skip(query.PageNumber * query.PageSize)
+                  .Take(query.PageSize)
                 .ToListAsync(cancellationToken);
 
             return await OkAsync(result);

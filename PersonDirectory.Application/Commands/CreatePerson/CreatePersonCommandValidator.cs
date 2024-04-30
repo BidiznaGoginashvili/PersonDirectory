@@ -1,12 +1,21 @@
 ﻿using FluentValidation;
 using PersonDirectory.Application.Resources;
+using PersonDirectory.Domain.CityManagement;
+using PersonDirectory.Infrastructure.Database;
 
 namespace PersonDirectory.Application.Commands.CreatePerson
 {
     public class CreatePersonCommandValidator : AbstractValidator<CreatePersonCommand>
     {
-        public CreatePersonCommandValidator()
+        private readonly DatabaseContext _context;
+
+        public CreatePersonCommandValidator(DatabaseContext context)
         {
+            _context = context;
+
+            RuleFor(command => command.CityId)
+                .Must(CityIdExists).WithMessage("InvalidCityId".GetLocalizedResource());
+
             RuleFor(command => command.FirstName)
                 .NotEmpty().WithMessage("FirstNameRequired".GetLocalizedResource())
                 .Length(2, 50).WithMessage("InvalidFirstNameLength".GetLocalizedResource())
@@ -26,9 +35,11 @@ namespace PersonDirectory.Application.Commands.CreatePerson
                 .Must(BeAtLeast18YearsOld).WithMessage("InvalidBirthDate".GetLocalizedResource());
         }
 
-        private bool BeAtLeast18YearsOld(DateTime birthDate)
-        {
-            return DateTime.Today.AddYears(-18) >= birthDate.Date;
-        }
+        private bool CityIdExists(int cityId) =>
+                _context.Set<City>().Any(c => c.Id == cityId);
+
+        private bool BeAtLeast18YearsOld(DateTime birthDate) =>
+            DateTime.Today.AddYears(-18) >= birthDate.Date;
+
     }
 }
